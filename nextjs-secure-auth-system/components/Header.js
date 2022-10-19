@@ -1,13 +1,27 @@
 import { motion } from "framer-motion";
 import React from "react";
 import { SocialIcon } from "react-social-icons";
+import { HiOutlineHome, HiOutlineLogin, HiLogin } from "react-icons/hi";
+import { Menu } from "antd";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import {
+  AppstoreOutlined,
+  CoffeeOutlined,
+  LoginOutlined,
+  LogoutOutlined,
+  UserAddOutlined,
+} from "@ant-design/icons";
 
 function Header() {
+  const { Item, SubMenu, ItemGroup } = Menu;
+  useEffect(() => {
+    process.browser && setCurrent(window.location.pathname);
+  }, [process.browser && window.location.pathname]);
+
+  const [current, setCurrent] = useState("");
   return (
-    <header
-      className="sticky top-0 p-5 flex items-start justify-between max-w-7xl mx-auto z-20
-    xl:items-center"
-    >
+    <header >
       <motion.div
         initial={{
           x: -500,
@@ -22,52 +36,46 @@ function Header() {
         transition={{
           duration: 1.5,
         }}
-        className="flex flex-row items-center"
+        className="flex flex-row items-center justify-center"
       >
-        {/* Social icons*/}
-        <SocialIcon
-          url="https://www.youtube.com/channel/UC4dONYazsrm_03rV3Z4Cyew"
-          fgColor="gray"
-          bgColor="transparent"
-        />
-        <SocialIcon
-          url="https://www.youtube.com/channel/UC4dONYazsrm_03rV3Z4Cyew"
-          fgColor="gray"
-          bgColor="transparent"
-        />
-        <SocialIcon
-          url="https://www.youtube.com/channel/UC4dONYazsrm_03rV3Z4Cyew"
-          fgColor="gray"
-          bgColor="transparent"
-        />
-      </motion.div>
+        <Menu
+          selectedKeys={[current]}
+          style={{ width: 315 }}
+          mode="horizontal"
+          theme="light"
+        >
+          <Item
+            key="/"
+            onClick={(e) => setCurrent(e.key)}
+            icon={<AppstoreOutlined />}
+          >
+            <Link href="/">
+              <a>Home</a>
+            </Link>
+          </Item>
 
-      <motion.div
-        initial={{
-          x: 500,
-          opacity: 0,
-          scale: 0.5,
-        }}
-        animate={{
-          x: 0,
-          opacity: 1,
-          scale: 1,
-        }}
-        transition={{
-          duration: 1.5,
-        }}
-        className="flex flex-row items-center text-gray-300 cursor-pointer"
-      >
-        <SocialIcon
-          className="cursor-pointer"
-          network="email"
-          fgColor="gray"
-          bgColor="transparent"
-        />
+          <>
+            <Item
+              key="/login"
+              onClick={(e) => setCurrent(e.key)}
+              icon={<LoginOutlined />}
+            >
+              <Link href="/login">
+                <a>Login</a>
+              </Link>
+            </Item>
 
-        <p className="uppercase hidden md:inline-flex text-sm text-gray-400">
-          Getd in touch
-        </p>
+            <Item
+              key="/register"
+              onClick={(e) => setCurrent(e.key)}
+              icon={<UserAddOutlined />}
+            >
+              <Link href="/register">
+                <a>Register</a>
+              </Link>
+            </Item>
+          </>
+        </Menu>
       </motion.div>
     </header>
   );
