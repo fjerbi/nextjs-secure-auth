@@ -1,10 +1,10 @@
 const Index = () => {
   return (
     <>
-      <h1 className="jumbotron text-center bg-primary square">
-        Online Education Marketplace
+      <h1>
+       Working on it
       </h1>
-      <p>from next js...</p>
+     
     </>
   );
 };

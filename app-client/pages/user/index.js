@@ -3,15 +3,18 @@ import { Context } from "../../context";
 import UserRoute from "../../components/routes/UserRoute";
 
 const UserIndex = () => {
-  const {
-    state: { user },
-  } = useContext(Context);
+  const { state, dispatch } = useContext(Context);
+  const { user } = state;
 
   return (
     <UserRoute>
-      <h1 className="jumbotron text-center square">
-        <pre>{JSON.stringify(user, null, 4)}</pre>
-      </h1>
+      
+      {user !== null && (
+        <div>
+          <h1>{user.name}</h1>
+          <h1>{user.email}</h1>
+        </div>
+      )}
     </UserRoute>
   );
 };
